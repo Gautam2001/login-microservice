@@ -15,7 +15,7 @@ public class CustomUserDetails implements UserDetails {
 
 	private final UserAuthEntity userAuthEntity;
 
-	public CustomUserDetails(com.Login.Entity.UserAuthEntity userAuthEntity) {
+	public CustomUserDetails(UserAuthEntity userAuthEntity) {
 		super();
 		this.userAuthEntity = userAuthEntity;
 	}

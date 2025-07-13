@@ -1,10 +1,12 @@
 package com.Login.Controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@PostMapping("/ping")
+	@GetMapping("/ping")
 	public ResponseEntity<HashMap<String, Object>> ping() {
 		CommonUtils.logMethodEntry(this);
 
@@ -146,6 +148,17 @@ public class LoginController {
 		HashMap<String, Object> response = loginService.changePassword(changePasswordDTO);
 
 		return ResponseEntity.ok(response);
+	}
+	
+	// for external micro-services 
+	@PostMapping("/check-user-exists")
+	public ResponseEntity<Map<String, Object>> checkUserExists(
+			@RequestBody @Valid UsernameDTO usernameDTO) {
+		CommonUtils.logMethodEntry(this);
+
+		ResponseEntity<Map<String, Object>> response = loginService.checkUserExists(usernameDTO);
+
+		return response;
 	}
 
 	@PostMapping("/test")

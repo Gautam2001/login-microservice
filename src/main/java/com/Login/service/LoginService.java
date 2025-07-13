@@ -1,6 +1,7 @@
 package com.Login.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -37,5 +38,7 @@ public interface LoginService {
 	HashMap<String, Object> requestResetPassword(@Valid UserLoginDTO resetPasswordDTO);
 
 	HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO);
+
+	ResponseEntity<Map<String, Object>> checkUserExists(@Valid UsernameDTO usernameDTO);
 
 }

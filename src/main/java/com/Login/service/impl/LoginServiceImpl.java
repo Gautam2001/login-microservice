@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -536,6 +537,23 @@ public class LoginServiceImpl implements LoginService {
 
 		CommonUtils.logMethodEntry(this, "Password change successful for user: " + username);
 		return CommonUtils.prepareResponse(response, "Password change successful", true);
+	}
+
+	@Override
+	public ResponseEntity<Map<String, Object>> checkUserExists(@Valid UsernameDTO usernameDTO) {
+		CommonUtils.logMethodEntry(this);
+
+		String username = CommonUtils.normalizeUsername(usernameDTO.getUsername());
+		usernameDTO.setUsername(username);
+
+		Optional<UserAuthEntity> userOpt = userAuthDao.getUserByUsername(username);
+		if (userOpt.isPresent()) {
+			CommonUtils.logMethodEntry(this, "User fetched successfully.");
+			return ResponseEntity.ok().body(Map.of("exists", true, "name", userOpt.get().getName()));
+		} else {
+			CommonUtils.logMethodEntry(this, "User not Found.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("exists", false));
+		}
 	}
 
 }

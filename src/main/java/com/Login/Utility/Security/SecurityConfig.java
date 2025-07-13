@@ -33,7 +33,7 @@ public class SecurityConfig {
 						.requestMatchers("/auth/ping", "/auth/request-signup", "/auth/signup",
 								"/auth/signup-resend-otp", "/auth/login", "/auth/logout", "/auth/refresh",
 								"/auth/request-forgot-password", "/auth/validate-otp", "/auth/forgot-password",
-								"/auth/forgotpass-resend-otp")
+								"/auth/forgotpass-resend-otp", "/auth/check-user-exists")
 						.permitAll().anyRequest().authenticated())
 				.exceptionHandling(e -> e.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 						.accessDeniedHandler(new CustomAccessDeniedHandler()))
