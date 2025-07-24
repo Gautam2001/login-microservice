@@ -37,7 +37,7 @@ public interface LoginService {
 
 	HashMap<String, Object> requestResetPassword(@Valid UserLoginDTO resetPasswordDTO);
 
-	HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO);
+	HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO, boolean checkTokenUser);
 
 	ResponseEntity<Map<String, Object>> checkUserExists(@Valid UsernameDTO usernameDTO);
 

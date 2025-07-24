@@ -115,7 +115,7 @@ public class LoginController {
 			@RequestBody @Valid UserChangePasswordDTO changePasswordDTO) {
 		CommonUtils.logMethodEntry(this);
 
-		HashMap<String, Object> response = loginService.changePassword(changePasswordDTO);
+		HashMap<String, Object> response = loginService.changePassword(changePasswordDTO, false);
 
 		return ResponseEntity.ok(response);
 	}
@@ -145,7 +145,7 @@ public class LoginController {
 			@RequestBody @Valid UserChangePasswordDTO changePasswordDTO) {
 		CommonUtils.logMethodEntry(this);
 
-		HashMap<String, Object> response = loginService.changePassword(changePasswordDTO);
+		HashMap<String, Object> response = loginService.changePassword(changePasswordDTO, true);
 
 		return ResponseEntity.ok(response);
 	}
@@ -159,15 +159,6 @@ public class LoginController {
 		ResponseEntity<Map<String, Object>> response = loginService.checkUserExists(usernameDTO);
 
 		return response;
-	}
-
-	@PostMapping("/test")
-	public ResponseEntity<HashMap<String, Object>> test() {
-		CommonUtils.logMethodEntry(this);
-
-		HashMap<String, Object> response = new HashMap<>();
-
-		return ResponseEntity.ok(CommonUtils.prepareResponse(response, "pong", true));
 	}
 
 }

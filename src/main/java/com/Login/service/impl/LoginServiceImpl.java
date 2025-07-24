@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -455,6 +456,12 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public HashMap<String, Object> requestResetPassword(@Valid UserLoginDTO resetPasswordDTO) {
 		String username = CommonUtils.normalizeUsername(resetPasswordDTO.getUsername());
+		String tokenUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+	    if (!tokenUser.equals(username)) {
+	        throw new AppException("Access denied: Token does not match requested user.", HttpStatus.FORBIDDEN);
+	    }
+	    
 		resetPasswordDTO.setUsername(username);
 		CommonUtils.logMethodEntry(this, "Request Reset Password attempt for user: " + username);
 
@@ -501,10 +508,17 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	@Transactional
-	public HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO) {
+	public HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO, boolean chechTokenUser) {
 		CommonUtils.logMethodEntry(this);
 
 		String username = CommonUtils.normalizeUsername(changePasswordDTO.getUsername());
+		if (chechTokenUser) {
+			String tokenUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		    if (!tokenUser.equals(username)) {
+		        throw new AppException("Access denied: Token does not match requested user.", HttpStatus.FORBIDDEN);
+		    }
+		}
 		changePasswordDTO.setUsername(username);
 
 		UserAuthEntity user = CommonUtils.fetchUserIfExists(userAuthDao, username,
