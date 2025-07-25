@@ -149,11 +149,10 @@ public class LoginController {
 
 		return ResponseEntity.ok(response);
 	}
-	
-	// for external micro-services 
+
+	// for external micro-services
 	@PostMapping("/check-user-exists")
-	public ResponseEntity<Map<String, Object>> checkUserExists(
-			@RequestBody @Valid UsernameDTO usernameDTO) {
+	public ResponseEntity<Map<String, Object>> checkUserExists(@RequestBody @Valid UsernameDTO usernameDTO) {
 		CommonUtils.logMethodEntry(this);
 
 		ResponseEntity<Map<String, Object>> response = loginService.checkUserExists(usernameDTO);
