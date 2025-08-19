@@ -111,12 +111,12 @@ public class LoginServiceImpl implements LoginService {
 			throw new AppException("Failed to send the OTP. Please try again.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		try {
-			emailService.sendOtpEmail(savedUser.getUsername(), savedUser.getName(), otp, "Signup");
-		} catch (Exception e) {
-			signupStagingDao.deleteById(savedUser.getId());
-			throw new AppException("Failed to send email. Try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+//		try {
+//			emailService.sendOtpEmail(savedUser.getUsername(), savedUser.getName(), otp, "Signup");
+//		} catch (Exception e) {
+//			signupStagingDao.deleteById(savedUser.getId());
+//			throw new AppException("Failed to send email. Try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 
 		return CommonUtils.prepareResponse(response,
 				" OTP Send to email: " + savedUser.getUsername() + " successfully.", true);
