@@ -46,7 +46,11 @@ public class SecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:4173"));
+		configuration.setAllowedOrigins(List.of(
+		        "http://localhost:5173",
+		        "http://localhost:4173",
+		        "https://messenger-chats.vercel.app"
+		    ));
 
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
 
