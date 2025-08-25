@@ -240,7 +240,7 @@ public class LoginServiceImpl implements LoginService {
 		String refreshToken = jwtUtil.generateRefreshToken(userDetails.getUsername(), role);
 
 		ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken).httpOnly(true).secure(true)
-				.path("/auth/refresh").maxAge(1 * 24 * 60 * 60).sameSite("Strict").build();
+				.path("/auth/refresh").maxAge(1 * 24 * 60 * 60).sameSite("None").build();
 
 		HashMap<String, Object> response = new HashMap<>();
 		response.put("accessToken", accessToken);
