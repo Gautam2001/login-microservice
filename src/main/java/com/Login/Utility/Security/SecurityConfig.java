@@ -49,7 +49,8 @@ public class SecurityConfig {
 		configuration.setAllowedOrigins(List.of(
 		        "http://localhost:5173",
 		        "http://localhost:4173",
-		        "https://messenger-chats.vercel.app"
+		        "https://messenger-chats.vercel.app",
+		        "https://wrap-and-wow.vercel.app"
 		    ));
 
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
