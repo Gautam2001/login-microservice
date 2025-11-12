@@ -160,4 +160,14 @@ public class LoginController {
 		return response;
 	}
 
+	// for external micro-services
+	@PostMapping("/check-super-admin-exists")
+	public ResponseEntity<Map<String, Object>> checkSuperAdminExists(@RequestBody @Valid UsernameDTO usernameDTO) {
+		CommonUtils.logMethodEntry(this);
+
+		ResponseEntity<Map<String, Object>> response = loginService.checkSuperAdminExists(usernameDTO);
+
+		return response;
+	}
+
 }

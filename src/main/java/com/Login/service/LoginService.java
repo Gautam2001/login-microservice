@@ -40,5 +40,7 @@ public interface LoginService {
 	HashMap<String, Object> changePassword(@Valid UserChangePasswordDTO changePasswordDTO, boolean checkTokenUser);
 
 	ResponseEntity<Map<String, Object>> checkUserExists(@Valid UsernameDTO usernameDTO);
+	
+	ResponseEntity<Map<String, Object>> checkSuperAdminExists(@Valid UsernameDTO usernameDTO);
 
 }

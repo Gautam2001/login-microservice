@@ -152,6 +152,14 @@ public class LoginServiceImpl implements LoginService {
 			CommonUtils.logMethodEntry(this, "Expired OTP for user: " + username);
 			throw new AppException("OTP Expired", HttpStatus.BAD_REQUEST);
 		}
+		
+		if (signUpData.getRole().equals(Role.SUPERADMIN)) {
+			int count = userAuthDao.countByRole(signUpData.getRole());
+			if (count >= 1) {
+				CommonUtils.logMethodEntry(this, "Super Admin cannot be more than 1." + username);
+				throw new AppException("Super Admin cannot be more than 1.", HttpStatus.BAD_REQUEST);
+			}
+		}
 
 		UserAuthEntity userAuthEntity = new UserAuthEntity(signUpData.getUsername(), signUpData.getName(),
 				signUpData.getPasswordHash(), signUpData.getRole());
@@ -553,6 +561,23 @@ public class LoginServiceImpl implements LoginService {
 		usernameDTO.setUsername(username);
 
 		Optional<UserAuthEntity> userOpt = userAuthDao.getUserByUsername(username);
+		if (userOpt.isPresent()) {
+			CommonUtils.logMethodEntry(this, "User fetched successfully.");
+			return ResponseEntity.ok().body(Map.of("exists", true, "name", userOpt.get().getName(), "role", userOpt.get().getRole()));
+		} else {
+			CommonUtils.logMethodEntry(this, "User not Found.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("exists", false));
+		}
+	}
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> checkSuperAdminExists(@Valid UsernameDTO usernameDTO) {
+		CommonUtils.logMethodEntry(this);
+
+		String username = CommonUtils.normalizeUsername(usernameDTO.getUsername());
+		usernameDTO.setUsername(username);
+
+		Optional<UserAuthEntity> userOpt = userAuthDao.getUserByUsernameAndRole(username, Role.SUPERADMIN);
 		if (userOpt.isPresent()) {
 			CommonUtils.logMethodEntry(this, "User fetched successfully.");
 			return ResponseEntity.ok().body(Map.of("exists", true, "name", userOpt.get().getName(), "role", userOpt.get().getRole()));

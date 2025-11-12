@@ -21,7 +21,7 @@ public class UserSignupDTO {
 	private String password;
 
 	@NotBlank(message = "Role is required")
-	@Size(min = 4, max = 5, message = "Specify the role of the Member")
+	@Size(min = 4, max = 10, message = "Specify the role of the Member")
 	private String role;
 
 }

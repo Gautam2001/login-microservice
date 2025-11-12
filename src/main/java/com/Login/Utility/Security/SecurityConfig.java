@@ -33,7 +33,8 @@ public class SecurityConfig {
 						.requestMatchers("/auth/ping", "/auth/request-signup", "/auth/signup",
 								"/auth/signup-resend-otp", "/auth/login", "/auth/logout", "/auth/refresh",
 								"/auth/request-forgot-password", "/auth/validate-otp", "/auth/forgot-password",
-								"/auth/forgotpass-resend-otp", "/auth/check-user-exists")
+								"/auth/forgotpass-resend-otp", "/auth/check-user-exists",
+								"/auth/check-super-admin-exists")
 						.permitAll().anyRequest().authenticated())
 				.exceptionHandling(e -> e.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 						.accessDeniedHandler(new CustomAccessDeniedHandler()))
@@ -46,12 +47,8 @@ public class SecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(List.of(
-		        "http://localhost:5173",
-		        "http://localhost:4173",
-		        "https://messenger-chats.vercel.app",
-		        "https://wrap-and-wow.vercel.app"
-		    ));
+		configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:4173",
+				"https://messenger-chats.vercel.app", "https://wrap-and-wow.vercel.app"));
 
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
 

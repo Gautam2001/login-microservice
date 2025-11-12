@@ -49,7 +49,7 @@ public class UserAuthEntity {
 	private LocalDateTime updatedAt;
 
 	public enum Role {
-		USER, ADMIN
+		USER, ADMIN, SUPERADMIN
 	}
 
 	public enum AccountStatus {
