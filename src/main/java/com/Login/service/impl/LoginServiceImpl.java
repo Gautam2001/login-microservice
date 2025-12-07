@@ -42,6 +42,7 @@ import com.Login.service.LoginService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -113,6 +114,9 @@ public class LoginServiceImpl implements LoginService {
 
 		try {
 			emailService.sendOtpEmail(savedUser.getUsername(), savedUser.getName(), otp, "Signup");
+		} catch (MessagingException e) {
+		    e.printStackTrace();
+		    throw new AppException("Failed to send OTP email: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			signupStagingDao.deleteById(savedUser.getId());
 			e.printStackTrace();
