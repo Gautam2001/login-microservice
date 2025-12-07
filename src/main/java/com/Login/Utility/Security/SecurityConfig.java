@@ -48,7 +48,7 @@ public class SecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:4173",
-				"https://messenger-chats.vercel.app", "https://wrap-and-wow.vercel.app"));
+				"https://messenger-chats.vercel.app", "https://wrap-and-wow.vercel.app", "https://gautam-singhal.vercel.app"));
 
 		configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
 
