@@ -115,6 +115,7 @@ public class LoginServiceImpl implements LoginService {
 			emailService.sendOtpEmail(savedUser.getUsername(), savedUser.getName(), otp, "Signup");
 		} catch (Exception e) {
 			signupStagingDao.deleteById(savedUser.getId());
+			e.printStackTrace();
 			throw new AppException("Failed to send email. Try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
