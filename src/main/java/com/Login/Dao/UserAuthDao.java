@@ -13,9 +13,9 @@ import com.Login.Entity.UserAuthEntity.Role;
 public interface UserAuthDao extends JpaRepository<UserAuthEntity, UUID> {
 
 	Optional<UserAuthEntity> getUserByUsername(String username);
-	
+
 	Optional<UserAuthEntity> getUserByUsernameAndRole(String username, Role role);
-	
+
 	int countByRole(Role role);
 
 }
